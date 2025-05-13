@@ -14,17 +14,17 @@
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
 		<OutputType>Exe</OutputType>
-		<RootNamespace>Agenda_Personal</RootNamespace>
+		<RootNamespace>LoginFlow</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Agenda Personal</ApplicationTitle>
+		<ApplicationTitle>LoginFlow</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.agendapersonal</ApplicationId>
+		<ApplicationId>com.companyname.loginflow</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -60,38 +60,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="ContactosPage.xaml.cs">
-	    <DependentUpon>ContactosPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="CrearContactosPage.xaml.cs">
-	    <DependentUpon>CrearContactosPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="DetalleContactoPage.xaml.cs">
-	    <DependentUpon>DetalleContactoPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="ConfiguracionPage.xaml.cs">
-	    <DependentUpon>ConfiguracionPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="ContactosPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="CrearContactosPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="DetalleContactoPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="ConfiguracionPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
 
 </Project>
