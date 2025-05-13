@@ -3,13 +3,44 @@
     x:Class="LoginFlow.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LoginFlow"
-    Shell.FlyoutBehavior="Flyout"
-    Title="LoginFlow">
+    xmlns:views="clr-namespace:LoginFlow.Views"
+    xmlns:agenda="clr-namespace:Agenda_Personal"
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:LoadingPage}"
+        Route="loading" />
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="login"/>
+
+    <TabBar>
+        <Tab Title="Inicio" Icon="house_door_fill.svg">
+            <ShellContent
+                Icon="house_door_fill.svg"
+                Title="Inicio"
+                ContentTemplate="{DataTemplate views:HomePage}"
+                Route="home" />
+        </Tab>
+
+        <Tab Title="Contactos" Icon="journal_check.svg">
+            <ShellContent
+                Icon="journal_check.svg"
+                Title="Contactos"
+                ContentTemplate="{DataTemplate agenda:MainPage}"
+                Route="MainPage" />
+        </Tab>
+
+        <Tab Title="Configuración" Icon="gear_fill.svg">
+            <ShellContent
+                Icon="gear_fill.svg"
+                Title="Configuración"
+                ContentTemplate="{DataTemplate views:SettingsPage}"
+                Route="settings" />
+        </Tab>
+    </TabBar>
 
 </Shell>

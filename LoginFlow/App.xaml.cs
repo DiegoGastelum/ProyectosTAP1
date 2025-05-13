@@ -1,14 +1,28 @@
-﻿namespace LoginFlow;
+﻿using System.Collections.ObjectModel; 
+using Agenda_Personal;                
+
+#if __ANDROID__
+using Android.Content.Res;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
+
+namespace LoginFlow;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
-	}
+    public ObservableCollection<Contacto> ListaContactos { get; set; } = new();
 
-	protected override Window CreateWindow(IActivationState? activationState)
-	{
-		return new Window(new AppShell());
-	}
+    public App()
+    {
+        InitializeComponent();
+
+        MainPage = new AppShell();
+
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderLine", (handler, view) =>
+        {
+#if __ANDROID__
+            (handler.PlatformView as Android.Views.View).SetBackgroundColor(Microsoft.Maui.Graphics.Colors.Transparent.ToAndroid());
+#endif
+        });
+    }
 }
