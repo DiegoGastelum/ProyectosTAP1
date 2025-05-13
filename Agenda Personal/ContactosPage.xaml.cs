@@ -4,16 +4,22 @@ namespace Agenda_Personal;
 
 public partial class ContactosPage : ContentPage
 {
-    public ObservableCollection<Contacto> Contactos { get; set; } = new ObservableCollection<Contacto>();
+    public ObservableCollection<Contacto> Contactos => ((App)Application.Current).ListaContactos;
 
     public ContactosPage()
     {
         InitializeComponent();
-        Contactos.Add(new Contacto { Nombre = "Ana Lopez", Telefono = "123456789", Correo = "ana@correo.com" });
-        Contactos.Add(new Contacto { Nombre = "Juan Perez", Telefono = "987654321", Correo = "juan@correo.com" });
+
+        if (Contactos.Count == 0)
+        {
+            Contactos.Add(new Contacto { Nombre = "Ana Lopez", Telefono = "123456789", Correo = "ana@correo.com" });
+            Contactos.Add(new Contacto { Nombre = "Juan Perez", Telefono = "987654321", Correo = "juan@correo.com" });
+        }
+
         BindingContext = this;
     }
 }
+
 public class Contacto
 {
     public string Nombre { get; set; }

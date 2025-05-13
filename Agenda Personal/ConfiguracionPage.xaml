@@ -8,13 +8,17 @@
         <Label Text="Configuración" FontSize="Large"
                AbsoluteLayout.LayoutBounds="0.5,0.1,100,30"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
-        <Switch AbsoluteLayout.LayoutBounds="0.1,0.3,100,30"
+        <Switch x:Name="NotificacionesSwitch"
+                Toggled="NotificacionesSwitch_Toggled"
+                AbsoluteLayout.LayoutBounds="0.1,0.3,100,30"
                 AbsoluteLayout.LayoutFlags="PositionProportional" />
         <Label Text="Activar Notificaciones"
                AbsoluteLayout.LayoutBounds="0.5,0.3,200,30"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         <Button Text="Cambiar Tema"
-                AbsoluteLayout.LayoutBounds="0.5,0.5,150,40"
-                AbsoluteLayout.LayoutFlags="PositionProportional" />
+               Clicked="CambiarTema_Clicked"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,150,40"
+               AbsoluteLayout.LayoutFlags="PositionProportional" />
+
     </AbsoluteLayout>
 </ContentPage>

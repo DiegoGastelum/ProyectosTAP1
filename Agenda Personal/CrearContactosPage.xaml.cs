@@ -17,6 +17,8 @@ public partial class CrearContactosPage : ContentPage
             Direccion = DireccionEntry.Text
         };
 
+        ((App)Application.Current).ListaContactos.Add(nuevoContacto);
+
         await DisplayAlert("Éxito", "Contacto guardado correctamente", "OK");
         await Navigation.PopAsync();
     }
