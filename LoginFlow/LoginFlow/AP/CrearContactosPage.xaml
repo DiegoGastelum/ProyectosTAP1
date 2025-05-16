@@ -4,11 +4,17 @@
              x:Class="Agenda_Personal.CrearContactosPage"
              Title="Crear Contacto">
 
-    <FlexLayout Direction="Column" AlignItems="Start" JustifyContent="Center" Padding="20">
+    <FlexLayout 
+        Direction="Column" 
+        AlignItems="Center" 
+        JustifyContent="Start" 
+        Padding="30">
+
         <Entry x:Name="NombreEntry" Placeholder="Nombre" WidthRequest="250" />
         <Entry x:Name="TelefonoEntry" Placeholder="Teléfono" WidthRequest="250" />
         <Entry x:Name="CorreoEntry" Placeholder="Correo" WidthRequest="250" />
         <Entry x:Name="DireccionEntry" Placeholder="Dirección" WidthRequest="250" />
         <Button Text="Guardar Contacto" WidthRequest="250" Clicked="GuardarContacto" />
+
     </FlexLayout>
 </ContentPage>

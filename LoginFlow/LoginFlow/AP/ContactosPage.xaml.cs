@@ -13,8 +13,8 @@ public partial class ContactosPage : ContentPage
 
         if (Contactos.Count == 0)
         {
-            Contactos.Add(new Contacto { Nombre = "Ana Lopez", Telefono = "123456789", Correo = "ana@correo.com" });
-            Contactos.Add(new Contacto { Nombre = "Juan Perez", Telefono = "987654321", Correo = "juan@correo.com" });
+            Contactos.Add(new Contacto { Nombre = "Ana Lopez", Telefono = "123456789", Correo = "ana@correo.com", Direccion = "Ensenada" });
+            Contactos.Add(new Contacto { Nombre = "Juan Perez", Telefono = "987654321", Correo = "juan@correo.com", Direccion = "Ensenada" });
         }
 
         BindingContext = this;

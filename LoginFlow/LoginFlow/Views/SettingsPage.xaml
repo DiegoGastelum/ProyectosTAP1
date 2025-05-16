@@ -5,7 +5,8 @@
              Title="Settings">
     <Grid RowDefinitions="2*,*" Margin="0,10,0,0">
         <VerticalStackLayout Padding="10" VerticalOptions="Center" HorizontalOptions="Center">
-            <Frame BorderColor="Gray"
+            <Frame BackgroundColor="LightGray"
+               BorderColor="Gray"
                CornerRadius="10"
                HasShadow="True"
                Margin="0,-20,0,0"
@@ -23,13 +24,13 @@
 
                         <VerticalStackLayout Padding="0" Margin="0,5,0,0">
                             <HorizontalStackLayout>
-                                <Label FontSize="34" TextColor="Green" FontAttributes="Bold" Text="W"/>
-                                <Label FontSize="34" TextColor="Red" FontAttributes="Bold" Text="e"/>
-                                <Label FontSize="34" TextColor="Purple" FontAttributes="Bold" Text="l"/>
-                                <Label FontSize="34" TextColor="Brown" FontAttributes="Bold" Text="c"/>
-                                <Label FontSize="34" TextColor="SkyBlue" FontAttributes="Bold" Text="o"/>
-                                <Label FontSize="34" TextColor="OrangeRed" FontAttributes="Bold" Text="m"/>
-                                <Label FontSize="34" TextColor="Aquamarine" FontAttributes="Bold" Text="e"/>
+                                <Label Text="Welcome"
+                                FontSize="34"
+                                FontAttributes="Bold">
+                                    <Label.TextColor>
+                                        <AppThemeBinding Light="Black" Dark="White"/>
+                                    </Label.TextColor>
+                                </Label>
                             </HorizontalStackLayout>
                             <Label
                                 Text="to Settings"
@@ -38,7 +39,7 @@
                                 />
                             <Label
                                 Text="Your are currently logged in!"
-                                FontSize="16"
+                                FontSize="14"
                                 />
                             <BoxView Color="Black"
                                  Margin="0,20,0,0"

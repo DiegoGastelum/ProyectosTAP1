@@ -9,11 +9,12 @@ public partial class SettingsPage : ContentPage
 
 	private async void LogoutButton_Clicked(object sender, EventArgs e)
 	{
-		if (await DisplayAlert("Are you sure?", "You will be logged out.", "Yes", "No"))
+		if (await DisplayAlert("Estás seguro?", "Saldrás de tu cuenta", "Sí", "No"))
 		{
             Preferences.Remove("UsuarioActual");
             SecureStorage.RemoveAll();
 			await Shell.Current.GoToAsync("///login");
 		}
 	}
+
 }

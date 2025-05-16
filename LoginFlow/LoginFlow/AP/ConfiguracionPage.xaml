@@ -6,11 +6,11 @@
 
     <AbsoluteLayout>
         <Label Text="Configuración" FontSize="Large"
-               AbsoluteLayout.LayoutBounds="0.5,0.1,100,30"
+               AbsoluteLayout.LayoutBounds="0.5,0.1,150,50"
                AbsoluteLayout.LayoutFlags="PositionProportional" />
         <Switch x:Name="NotificacionesSwitch"
                 Toggled="NotificacionesSwitch_Toggled"
-                AbsoluteLayout.LayoutBounds="0.1,0.3,100,30"
+                AbsoluteLayout.LayoutBounds="0.1,0.3,70,10"
                 AbsoluteLayout.LayoutFlags="PositionProportional" />
         <Label Text="Activar Notificaciones"
                AbsoluteLayout.LayoutBounds="0.5,0.3,200,30"

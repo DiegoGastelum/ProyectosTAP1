@@ -100,7 +100,7 @@
                                 >
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span FontFamily="Consolas" FontAttributes="Bold" Text="Olvidaste tu contraseña?" TextColor="Black"/>
+                                        <Span FontFamily="Consolas" FontAttributes="Bold" Text="Olvidé mi contraseña" TextColor="Black"/>
                                         <Span FontFamily="Consolas" FontAttributes="Bold" Text=" Recuperar"
                                                 TextColor="{StaticResource Primary}"
                                                 TextDecorations="Underline">
