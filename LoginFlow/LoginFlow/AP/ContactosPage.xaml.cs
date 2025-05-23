@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using LoginFlow;
+using LoginFlow.Modelos;
 
 namespace Agenda_Personal;
 
@@ -10,20 +11,33 @@ public partial class ContactosPage : ContentPage
     public ContactosPage()
     {
         InitializeComponent();
-
-        if (Contactos.Count == 0)
-        {
-            Contactos.Add(new Contacto { Nombre = "Ana Lopez", Telefono = "123456789", Correo = "ana@correo.com", Direccion = "Ensenada" });
-            Contactos.Add(new Contacto { Nombre = "Juan Perez", Telefono = "987654321", Correo = "juan@correo.com", Direccion = "Ensenada" });
-        }
-
+        CargarContactosAsync();
         BindingContext = this;
     }
-}
-public class Contacto
-{
-    public string Nombre { get; set; }
-    public string Telefono { get; set; }
-    public string Correo { get; set; }
-    public string Direccion { get; set; }
+
+    private async void CargarContactosAsync()
+    {
+        string usuarioActual = Preferences.Get("UsuarioActual", null);
+
+        if (string.IsNullOrEmpty(usuarioActual))
+        {
+            await DisplayAlert("Error", "No hay sesión activa.", "OK");
+            return;
+        }
+
+        var usuario = await App.BaseDatos.GetUsuarioPorNombreAsync(usuarioActual);
+        if (usuario == null)
+        {
+            await DisplayAlert("Error", "Usuario no encontrado en la base de datos.", "OK");
+            return;
+        }
+
+        // Obtener solo los contactos del usuario actual
+        var contactosDesdeDb = await App.BaseDatos.ObtenerContactosPorUsuarioAsync(usuario.Id);
+
+        Contactos.Clear();
+
+        foreach (var c in contactosDesdeDb)
+            Contactos.Add(c);
+    }
 }

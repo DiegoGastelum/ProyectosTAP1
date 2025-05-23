@@ -1,12 +1,16 @@
+using LoginFlow.Datos;
+using LoginFlow.Modelos;
+
 namespace LoginFlow.Views;
 
 public partial class LoginPage : ContentPage
 {
-    Dictionary<string, string> usuariosReg = new();
+    private readonly ContactoDatabase _database;
 
     public LoginPage()
     {
         InitializeComponent();
+        _database = App.BaseDatos;
     }
 
     protected override bool OnBackButtonPressed()
@@ -20,10 +24,10 @@ public partial class LoginPage : ContentPage
         string usuario = await DisplayPromptAsync("Recuperar contraseña", "Ingresa tu nombre de usuario:");
         if (string.IsNullOrWhiteSpace(usuario)) return;
 
-        if (usuariosReg.ContainsKey(usuario))
+        var usuarioObj = await _database.GetUsuarioPorNombreAsync(usuario);
+        if (usuarioObj != null)
         {
-            string contrasena = usuariosReg[usuario];
-            await DisplayAlert("Recuperación", $"Tu contraseña es: {contrasena}", "OK");
+            await DisplayAlert("Recuperación", $"Tu contraseña es: {usuarioObj.Contrasena}", "OK");
         }
         else
         {
@@ -36,7 +40,8 @@ public partial class LoginPage : ContentPage
         string nuevoUsuario = await DisplayPromptAsync("Registro", "Ingresa un nombre de usuario:");
         if (string.IsNullOrWhiteSpace(nuevoUsuario)) return;
 
-        if (usuariosReg.ContainsKey(nuevoUsuario))
+        var usuarioExistente = await _database.GetUsuarioPorNombreAsync(nuevoUsuario);
+        if (usuarioExistente != null)
         {
             await DisplayAlert("Error", "El usuario ya está registrado", "OK");
             return;
@@ -45,7 +50,13 @@ public partial class LoginPage : ContentPage
         string nuevaContraseña = await DisplayPromptAsync("Registro", "Ingresa una contraseña:");
         if (string.IsNullOrWhiteSpace(nuevaContraseña)) return;
 
-        usuariosReg[nuevoUsuario] = nuevaContraseña;
+        var nuevoUsuarioObj = new Usuarios
+        {
+            Usuario = nuevoUsuario,
+            Contrasena = nuevaContraseña
+        };
+
+        await _database.GuardarUsuarioAsync(nuevoUsuarioObj);
         await DisplayAlert("Éxito", $"Usuario {nuevoUsuario} registrado correctamente", "OK");
     }
 
@@ -54,7 +65,15 @@ public partial class LoginPage : ContentPage
         string usuario = Username.Text?.Trim();
         string contrasena = Password.Text?.Trim();
 
-        if (CredencialesSonValidas(usuario, contrasena))
+        if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena))
+        {
+            await DisplayAlert("Campos vacíos", "Por favor, ingresa tanto el usuario como la contraseña.", "OK");
+            return;
+        }
+
+        bool valido = await _database.ValidarUsuarioAsync(usuario, contrasena);
+
+        if (valido)
         {
             Preferences.Set("UsuarioActual", usuario);
             await SecureStorage.SetAsync("SesionIniciada", "true");
@@ -64,11 +83,5 @@ public partial class LoginPage : ContentPage
         {
             await DisplayAlert("Error", "Usuario o contraseña incorrectos", "OK");
         }
-    }
-
-    bool CredencialesSonValidas(string usuario, string contraseña)
-    {
-        return (usuario == "admin" && contraseña == "1234") ||
-               (usuariosReg.ContainsKey(usuario) && usuariosReg[usuario] == contraseña);
     }
 }

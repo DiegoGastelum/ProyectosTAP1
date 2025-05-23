@@ -1,4 +1,5 @@
 using LoginFlow;
+using LoginFlow.Modelos;
 
 namespace Agenda_Personal;
 
@@ -19,9 +20,32 @@ public partial class CrearContactosPage : ContentPage
             Direccion = DireccionEntry.Text
         };
 
-        ((App)Application.Current).ListaContactos.Add(nuevoContacto);
+        string usuarioActual = Preferences.Get("UsuarioActual", null);
 
-        await DisplayAlert("Éxito", "Contacto guardado correctamente", "OK");
-        await Navigation.PopAsync();
+        if (!string.IsNullOrEmpty(usuarioActual))
+        {
+            var usuario = await App.BaseDatos.GetUsuarioPorNombreAsync(usuarioActual);
+
+            if (usuario != null)
+            {
+                // Asignar el Id del usuario actual al nuevo contacto
+                nuevoContacto.UsuarioId = usuario.Id;
+
+                await App.BaseDatos.GuardarContactoAsync(nuevoContacto);
+
+                ((App)Application.Current).ListaContactos.Add(nuevoContacto);
+
+                await DisplayAlert("Éxito", "Contacto guardado correctamente", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se encontró el usuario actual", "OK");
+            }
+        }
+        else
+        {
+            await DisplayAlert("Error", "No hay usuario actual", "OK");
+        }
     }
 }

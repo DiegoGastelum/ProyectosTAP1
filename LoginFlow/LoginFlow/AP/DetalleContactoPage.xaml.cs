@@ -1,3 +1,5 @@
+using LoginFlow.Modelos;
+
 namespace Agenda_Personal;
 
 public partial class DetalleContactoPage : ContentPage
