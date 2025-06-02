@@ -40,4 +40,38 @@ public partial class ContactosPage : ContentPage
         foreach (var c in contactosDesdeDb)
             Contactos.Add(c);
     }
+
+    private async void Contacto_Tapped(object sender, EventArgs e)
+    {
+        var grid = sender as Grid;
+        var contacto = grid?.BindingContext as Contacto;
+
+        if (contacto == null) return;
+
+        await Navigation.PushAsync(new DetalleContactoPage(contacto));
+    }
+
+    private async void ModificarContacto_Invoked(object sender, EventArgs e)
+    {
+        var swipeItem = sender as SwipeItem;
+        var contacto = swipeItem?.BindingContext as Contacto;
+
+        if (contacto == null) return;
+
+        await Navigation.PushAsync(new ModificarContactoPage(contacto));
+    }
+
+    private async void EliminarContacto_Invoked(object sender, EventArgs e)
+    {
+        var swipeItem = sender as SwipeItem;
+        var contacto = swipeItem?.BindingContext as Contacto;
+
+        if (contacto == null) return;
+
+        bool confirm = await DisplayAlert("Confirmar", $"¿Eliminar contacto {contacto.Nombre}?", "Sí", "No");
+        if (!confirm) return;
+
+        await App.BaseDatos.EliminarContactoAsync(contacto);
+        Contactos.Remove(contacto);
+    }
 }

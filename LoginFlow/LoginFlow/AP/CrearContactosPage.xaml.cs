@@ -5,35 +5,50 @@ namespace Agenda_Personal;
 
 public partial class CrearContactosPage : ContentPage
 {
+    private Contacto _contactoActual;
+
     public CrearContactosPage()
     {
         InitializeComponent();
     }
 
+    public CrearContactosPage(Contacto contacto)
+    {
+        InitializeComponent();
+
+        _contactoActual = contacto;
+
+        NombreEntry.Text = _contactoActual.Nombre;
+        TelefonoEntry.Text = _contactoActual.Telefono;
+        CorreoEntry.Text = _contactoActual.Correo;
+        DireccionEntry.Text = _contactoActual.Direccion;
+    }
+
     private async void GuardarContacto(object sender, EventArgs e)
     {
-        var nuevoContacto = new Contacto
+        if (_contactoActual == null)
         {
-            Nombre = NombreEntry.Text,
-            Telefono = TelefonoEntry.Text,
-            Correo = CorreoEntry.Text,
-            Direccion = DireccionEntry.Text
-        };
+            _contactoActual = new Contacto();
+        }
+
+        _contactoActual.Nombre = NombreEntry.Text;
+        _contactoActual.Telefono = TelefonoEntry.Text;
+        _contactoActual.Correo = CorreoEntry.Text;
+        _contactoActual.Direccion = DireccionEntry.Text;
 
         string usuarioActual = Preferences.Get("UsuarioActual", null);
 
         if (!string.IsNullOrEmpty(usuarioActual))
         {
             var usuario = await App.BaseDatos.GetUsuarioPorNombreAsync(usuarioActual);
-
             if (usuario != null)
             {
-                // Asignar el Id del usuario actual al nuevo contacto
-                nuevoContacto.UsuarioId = usuario.Id;
+                _contactoActual.UsuarioId = usuario.Id;
 
-                await App.BaseDatos.GuardarContactoAsync(nuevoContacto);
+                await App.BaseDatos.GuardarContactoAsync(_contactoActual);
 
-                ((App)Application.Current).ListaContactos.Add(nuevoContacto);
+                if (!((App)Application.Current).ListaContactos.Contains(_contactoActual))
+                    ((App)Application.Current).ListaContactos.Add(_contactoActual);
 
                 await DisplayAlert("Éxito", "Contacto guardado correctamente", "OK");
                 await Navigation.PopAsync();

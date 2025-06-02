@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Agenda_Personal.ContactosPage"
@@ -9,14 +8,30 @@
         <CollectionView ItemsSource="{Binding Contactos}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Stroke="Black" StrokeThickness="1" Margin="5" Padding="10">
-                        <StackLayout>
-                            <Label Text="{Binding Nombre}" FontAttributes="Bold" />
-                            <Label Text="{Binding Telefono}" />
-                            <Label Text="{Binding Correo}" />
-                            <Label Text="{Binding Direccion}" />
-                        </StackLayout>
-                    </Border>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Modificar" BackgroundColor="Orange"
+                                           Invoked="ModificarContacto_Invoked"
+                                           BindingContext="{Binding .}" />
+                                <SwipeItem Text="Eliminar" BackgroundColor="Red"
+                                           Invoked="EliminarContacto_Invoked"
+                                           BindingContext="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="10" BackgroundColor="LightGray">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Contacto_Tapped" />
+                            </Grid.GestureRecognizers>
+
+                            <StackLayout>
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold" />
+                                <Label Text="{Binding Telefono}" />
+                                <Label Text="{Binding Correo}" />
+                                <Label Text="{Binding Direccion}" />
+                            </StackLayout>
+                        </Grid>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

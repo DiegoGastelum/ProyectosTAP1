@@ -15,6 +15,7 @@ public partial class App : Application
 
     public static ContactoDatabase BaseDatos { get; private set; }
 
+    public static Usuarios UsuarioActual { get; set; }
 
     public App()
     {

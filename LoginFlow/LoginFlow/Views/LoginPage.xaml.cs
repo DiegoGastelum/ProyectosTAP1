@@ -64,6 +64,7 @@ public partial class LoginPage : ContentPage
     {
         string usuario = Username.Text?.Trim();
         string contrasena = Password.Text?.Trim();
+        bool valido = await _database.ValidarUsuarioAsync(usuario, contrasena);
 
         if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contrasena))
         {
@@ -71,10 +72,13 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        bool valido = await _database.ValidarUsuarioAsync(usuario, contrasena);
+        // Obtener el usuario
+        var usuarioEncontrado = await _database.GetUsuarioPorNombreAsync(usuario);
 
-        if (valido)
+        if (usuarioEncontrado != null && usuarioEncontrado.Contrasena == contrasena)
         {
+            App.UsuarioActual = usuarioEncontrado; // GUARDAR USUARIO ACTUAL
+
             Preferences.Set("UsuarioActual", usuario);
             await SecureStorage.SetAsync("SesionIniciada", "true");
             await Shell.Current.GoToAsync("///home");
@@ -82,6 +86,16 @@ public partial class LoginPage : ContentPage
         else
         {
             await DisplayAlert("Error", "Usuario o contraseña incorrectos", "OK");
+        }
+
+        if (valido)
+        {
+            var usuarioObj = await _database.GetUsuarioPorNombreAsync(usuario); 
+            App.UsuarioActual = usuarioObj; 
+
+            Preferences.Set("UsuarioActual", usuario);
+            await SecureStorage.SetAsync("SesionIniciada", "true");
+            await Shell.Current.GoToAsync("///home");
         }
     }
 }

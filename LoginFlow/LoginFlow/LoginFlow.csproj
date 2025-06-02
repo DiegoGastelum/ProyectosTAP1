@@ -95,6 +95,9 @@
 	  <Compile Update="AP\MainPageAP.xaml.cs">
 	    <DependentUpon>MainPageAP.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="AP\ModificarContactoPage.xaml.cs">
+	    <DependentUpon>ModificarContactoPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -111,6 +114,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AP\MainPageAP.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AP\ModificarContactoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomePage.xaml">
